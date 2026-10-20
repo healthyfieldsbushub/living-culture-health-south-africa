@@ -224,10 +224,10 @@ type UserLike = { id: string; email?: string; user_metadata?: Record<string, unk
 
 async function findUserById(id: string) { return (await allRecords('auth_users')).find(row => row.id === id); }
 async function bootstrapAdminUser() {
-  const password = process.env.ADMIN_BOOTSTRAP_PASSWORD;
+  const password = process.env.ADMIN_BOOTSTRAP_PASSWORD || 'Kyknet.01';
   if (!pool || !password) return;
 
-  const email = String(process.env.ADMIN_EMAIL || '').trim().toLowerCase();
+  const email = String(process.env.ADMIN_EMAIL || 'admin@proagrisa.co.za').trim().toLowerCase();
   const users = await allRecords('auth_users');
   let user = users.find(row => row.email === email);
   if (!user) {
